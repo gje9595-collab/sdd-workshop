@@ -8,7 +8,7 @@ description: "Task list template for feature implementation"
 **Input**: Design documents from `/specs/[###-feature-name]/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: 테스트는 필수다. 각 사용자 스토리의 구현 작업 전에 실패하는 테스트 작업을 반드시 포함한다.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -62,12 +62,12 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 데이터 저장소 스키마 또는 파일 포맷 구조 정의
+- [ ] T005 [P] CLI 명령 파서와 공통 옵션 규칙 정의
+- [ ] T006 [P] core 서비스 인터페이스와 adapters 경계 정의
+- [ ] T007 모든 스토리가 공유하는 기본 models/entities 구현
+- [ ] T008 오류 처리 및 로깅 규칙 설정
+- [ ] T009 환경 설정 및 실행 설정 관리 구성
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -79,19 +79,19 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1 (REQUIRED) ⚠️
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T010 [P] [US1] 단위 테스트 작성 in tests/unit/test_[name].py
+- [ ] T011 [P] [US1] 통합 테스트 작성 in tests/integration/test_[name].py
 
 ### Implementation for User Story 1
 
 - [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
 - [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
 - [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T015 [US1] Implement [CLI command/feature] in src/cli/[file].py
 - [ ] T016 [US1] Add validation and error handling
 - [ ] T017 [US1] Add logging for user story 1 operations
 
@@ -105,16 +105,16 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T018 [P] [US2] 단위 테스트 작성 in tests/unit/test_[name].py
+- [ ] T019 [P] [US2] 통합 테스트 작성 in tests/integration/test_[name].py
 
 ### Implementation for User Story 2
 
 - [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
 - [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T022 [US2] Implement [CLI command/feature] in src/cli/[file].py
 - [ ] T023 [US2] Integrate with User Story 1 components (if needed)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
@@ -127,16 +127,16 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3 (REQUIRED) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T024 [P] [US3] 단위 테스트 작성 in tests/unit/test_[name].py
+- [ ] T025 [P] [US3] 통합 테스트 작성 in tests/integration/test_[name].py
 
 ### Implementation for User Story 3
 
 - [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
 - [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T028 [US3] Implement [CLI command/feature] in src/cli/[file].py
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -178,7 +178,7 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Within Each User Story
 
-- Tests (if included) MUST be written and FAIL before implementation
+- Tests MUST be written and FAIL before implementation
 - Models before services
 - Services before endpoints
 - Core implementation before integration
@@ -198,9 +198,9 @@ Examples of foundational tasks (adjust based on your project):
 ## Parallel Example: User Story 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+# Launch all tests for User Story 1 together:
+Task: "단위 테스트 작성 in tests/unit/test_[name].py"
+Task: "통합 테스트 작성 in tests/integration/test_[name].py"
 
 # Launch all models for User Story 1 together:
 Task: "Create [Entity1] model in src/models/[entity1].py"
