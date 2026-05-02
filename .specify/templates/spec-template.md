@@ -100,6 +100,12 @@
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
 
+## Out of Scope *(mandatory)*
+
+- REST API 서버 구현은 범위 밖으로 유지한다.
+- GUI/웹/모바일 인터페이스 구현은 범위 밖으로 유지한다.
+- 위 항목이 필요한 경우 별도 후속 프로젝트 또는 헌법 개정으로 분리한다.
+
 ## Success Criteria *(mandatory)*
 
 <!--
