@@ -37,7 +37,7 @@
 - [ ] Gate 4: 불필요한 추상화 없이 현재 요구사항에 필요한 최소 설계를 선택했는가?
 - [ ] Gate 5: 범위가 CLI ToDo 도구로 제한되어 있으며 REST API/GUI 작업이 제외되었는가?
 
-## Project Structure
+## Project Structure2
 
 ### Documentation (this feature)
 
