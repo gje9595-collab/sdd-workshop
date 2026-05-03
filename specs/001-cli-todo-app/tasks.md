@@ -3,33 +3,38 @@
 **Input**: Design documents from `/specs/001-cli-todo-app/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: 테스트는 선택 사항이 아니다. 모든 user story는 구현 전에 테스트 작업이 반드시 포함되어야 한다.
+**Tests**: 테스트는 필수다. 각 사용자 스토리의 구현 작업 전에 실패하는 테스트 작업을 반드시 포함한다.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
+- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3, US4)
 - Include exact file paths in descriptions
 
 ## Path Conventions
 
-- CLI 및 비즈니스 레이어: `todo_lib/`, `cli/`
+- 비즈니스 로직: `todo_lib/` (models, repository, service, validation, db, errors)
+- CLI 레이어: `cli/` (main entry point, output formatting)
 - 테스트: `tests/unit/`, `tests/integration/`
 - 설계 문서: `specs/001-cli-todo-app/`
 - REST API/GUI/Web 관련 경로는 사용하지 않는다.
+
+---
 
 ## Phase 1: Setup (Shared Infrastructure)
 
 **Purpose**: 프로젝트 초기화와 공통 개발 환경 준비
 
-- [X] T001 Initialize uv project metadata and dependency groups in pyproject.toml
-- [X] T002 Create base package structure files in todo_lib/__init__.py and cli/__init__.py
-- [X] T003 [P] Add CLI module entrypoint scaffold in cli/main.py
-- [X] T004 [P] Add test package markers in tests/unit/__init__.py and tests/integration/__init__.py
-- [X] T005 Configure pytest and coverage defaults in pyproject.toml
-- [X] T006 [P] Add baseline test fixtures for temporary SQLite path in tests/conftest.py
+- [ ] T001 pyproject.toml에서 uv 프로젝트 메타데이터 및 의존성 그룹 정의 (Typer, SQLAlchemy, pytest, pytest-cov)
+- [ ] T002 todo_lib/__init__.py와 cli/__init__.py에 패키지 마커 추가
+- [ ] T003 [P] cli/main.py에 Typer 앱 스캐폴드 작성
+- [ ] T004 [P] tests/unit/__init__.py와 tests/integration/__init__.py에 테스트 마커 추가
+- [ ] T005 pyproject.toml에서 pytest 및 커버리지 기본값 설정
+- [ ] T006 [P] tests/conftest.py에 임시 SQLite 경로 pytest fixture 추가
+
+---
 
 ---
 
@@ -37,117 +42,128 @@
 
 **Purpose**: 모든 user story에 공통으로 필요한 핵심 기반 구현
 
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
+**⚠️ CRITICAL**: 이 단계가 완료되기 전에는 user story 작업이 시작될 수 없다.
 
-- [X] T007 Implement SQLAlchemy engine/session factory and busy-timeout setup in todo_lib/db.py
-- [X] T008 [P] Implement ToDoItem ORM model schema in todo_lib/models.py
-- [X] T009 [P] Implement DB initialization and table creation helper in todo_lib/db.py
-- [X] T010 Implement repository CRUD base operations in todo_lib/repository.py
-- [X] T011 Implement shared validation helpers for title/date/priority/id in todo_lib/validators.py
-- [X] T012 [P] Implement CLI output formatting and error printing helpers in cli/output.py
-- [X] T013 Implement service-level exception classes and error mapping in todo_lib/errors.py
+- [ ] T007 todo_lib/db.py에서 SQLAlchemy engine/session factory 및 busy-timeout 설정 구현
+- [ ] T008 [P] todo_lib/models.py에서 ToDoItem ORM 모델 스키마 구현 (id, title, due_date, priority, status, created_at, updated_at)
+- [ ] T009 [P] todo_lib/db.py에서 DB 초기화 및 테이블 생성 헬퍼 구현
+- [ ] T010 todo_lib/repository.py에서 repository CRUD 기본 연산 구현 (add_item, list_items, mark_done, delete_item, get_item)
+- [ ] T011 todo_lib/validation.py에서 제목/날짜/우선순위/ID 공유 검증 헬퍼 구현
+- [ ] T012 [P] cli/formatters.py에서 CLI 출력 포맷팅 및 오류 출력 헬퍼 구현
+- [ ] T013 todo_lib/errors.py에서 서비스 레벨 예외 클래스 및 오류 매핑 구현
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+**Checkpoint**: Foundation 완성 - 이제 user story 구현을 병렬로 시작할 수 있다.
+
+---
 
 ---
 
 ## Phase 3: User Story 1 - ToDo 항목 추가 (Priority: P1) 🎯 MVP
 
-**Goal**: 제목/마감일/우선순위를 받아 새 항목을 저장하고 ID 포함 확인 메시지를 제공한다.
+**Goal**: 제목(필수)/마감일(선택)/우선순위(선택)를 받아 새 항목을 저장하고 ID 포함 확인 메시지 제공
 
-**Independent Test**: `todo add` 실행 후 DB에 항목이 저장되고, 빈 제목/잘못된 날짜 입력이 거부되는지 검증한다.
+**Independent Test**: `todo add` 실행 후 DB에 항목이 저장되고, 빈 제목/잘못된 날짜/과거 날짜 입력이 올바르게 처리되는지 검증
 
-### Tests for User Story 1 (MANDATORY) ⚠️
+### Tests for User Story 1 (REQUIRED) ⚠️
 
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+> **NOTE: 구현 전에 이 테스트들을 먼저 작성하고 FAIL 상태 확인**
 
-- [X] T014 [P] [US1] Add unit tests for add validation and ID assignment in tests/unit/test_service_add.py
-- [X] T015 [P] [US1] Add integration tests for add command success and input errors in tests/integration/test_cli_add.py
-- [X] T039 [US1] Add persistence restart integration test (process restart 후 list 재조회) in tests/integration/test_cli_persistence.py
+- [ ] T014 [P] [US1] tests/unit/test_add_todo.py에서 add 검증 및 ID 할당에 대한 단위 테스트 작성
+- [ ] T015 [P] [US1] tests/integration/test_cli_add.py에서 add 명령 성공 및 입력 오류에 대한 통합 테스트 작성
+- [ ] T039 [US1] tests/integration/test_cli_persistence.py에서 프로세스 재시작 후 list 재조회 영속성 통합 테스트 추가
 
 ### Implementation for User Story 1
 
-- [X] T016 [US1] Implement add_todo service workflow in todo_lib/service.py
-- [X] T017 [US1] Implement due-date past warning behavior in todo_lib/service.py
-- [X] T018 [US1] Wire `todo add` command options and service call in cli/main.py
-- [X] T019 [US1] Implement add command success/error/warning messages in cli/output.py
+- [ ] T016 [US1] todo_lib/service.py에서 add_todo 서비스 워크플로우 구현
+- [ ] T017 [US1] todo_lib/service.py에서 과거 날짜 마감일 경고 동작 구현
+- [ ] T018 [US1] cli/main.py에서 `todo add` 명령 옵션 및 서비스 호출 연결
+- [ ] T019 [US1] cli/formatters.py에서 add 명령 성공/오류/경고 메시지 구현
 
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**Checkpoint**: 이 지점에서 User Story 1이 완전히 기능하고 독립적으로 테스트 가능해야 함
+
+---
 
 ---
 
 ## Phase 4: User Story 2 - 전체 목록 조회 및 필터링 (Priority: P2)
 
-**Goal**: 전체 목록 조회와 완료 상태/우선순위 필터링 조회를 지원한다.
+**Goal**: 전체 목록 조회 및 완료 상태/우선순위 필터링 조회 지원
 
-**Independent Test**: 혼합 데이터에서 `todo list` 기본 조회 및 필터 조합 결과가 정확한지 검증한다.
+**Independent Test**: 혼합 데이터에서 `todo list` 기본 조회 및 필터 조합 결과가 정확한지 검증
 
-### Tests for User Story 2 (MANDATORY) ⚠️
+### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [X] T020 [P] [US2] Add unit tests for list filtering rules in tests/unit/test_service_list.py
-- [X] T021 [P] [US2] Add integration tests for list command outputs in tests/integration/test_cli_list.py
+- [ ] T020 [P] [US2] tests/unit/test_list_todo.py에서 list 필터링 규칙에 대한 단위 테스트 작성
+- [ ] T021 [P] [US2] tests/integration/test_cli_list.py에서 list 명령 출력에 대한 통합 테스트 작성
 
 ### Implementation for User Story 2
 
-- [X] T022 [US2] Implement list_todos filtering query logic in todo_lib/service.py
-- [X] T023 [US2] Wire `todo list` filter options and service call in cli/main.py
-- [X] T024 [US2] Implement list row rendering and empty-list message in cli/output.py
+- [ ] T022 [US2] todo_lib/service.py에서 list_todos 필터링 쿼리 로직 구현
+- [ ] T023 [US2] cli/main.py에서 `todo list` 필터 옵션 및 서비스 호출 연결
+- [ ] T024 [US2] cli/formatters.py에서 list 행 렌더링 및 빈 목록 메시지 구현
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+**Checkpoint**: 이 지점에서 User Story 1과 2가 모두 독립적으로 작동해야 함
+
+---
 
 ---
 
 ## Phase 5: User Story 3 - 항목 완료 처리 (Priority: P3)
 
-**Goal**: ID 기준 완료 처리와 중복 완료/없는 ID 오류 응답을 지원한다.
+**Goal**: ID 기준 완료 처리 및 중복 완료/없는 ID 오류 응답 지원
 
-**Independent Test**: `todo done <id>` 실행 후 상태 전환, 중복 완료 안내, 없는 ID 오류를 각각 검증한다.
+**Independent Test**: `todo done <id>` 실행 후 상태 전환, 중복 완료 안내, 없는 ID 오류를 각각 검증
 
-### Tests for User Story 3 (MANDATORY) ⚠️
+### Tests for User Story 3 (REQUIRED) ⚠️
 
-- [X] T025 [P] [US3] Add unit tests for done state transition rules in tests/unit/test_service_done.py
-- [X] T026 [P] [US3] Add integration tests for done command responses in tests/integration/test_cli_done.py
-- [X] T040 [US3] Add integration test for non-numeric ID input on `todo done` in tests/integration/test_cli_done.py
+- [ ] T025 [P] [US3] tests/unit/test_done_todo.py에서 done 상태 전환 규칙에 대한 단위 테스트 작성
+- [ ] T026 [P] [US3] tests/integration/test_cli_done.py에서 done 명령 응답에 대한 통합 테스트 작성
+- [ ] T040 [US3] tests/integration/test_cli_done.py에서 `todo done` 시 숫자가 아닌 ID 입력에 대한 통합 테스트 추가
 
 ### Implementation for User Story 3
 
-- [X] T027 [US3] Implement mark_done workflow and completed_at handling in todo_lib/service.py
-- [X] T028 [US3] Wire `todo done` command and ID parsing behavior in cli/main.py
-- [X] T029 [US3] Implement done command response messages in cli/output.py
+- [ ] T027 [US3] todo_lib/service.py에서 mark_done 워크플로우 및 completed_at 처리 구현
+- [ ] T028 [US3] cli/main.py에서 `todo done` 명령 및 ID 파싱 동작 연결
+- [ ] T029 [US3] cli/formatters.py에서 done 명령 응답 메시지 구현
 
-**Checkpoint**: User Stories 1, 2, 3 should be independently functional
+**Checkpoint**: User Story 1, 2, 3이 독립적으로 기능해야 함
+
+---
 
 ---
 
 ## Phase 6: User Story 4 - 항목 삭제 (Priority: P4)
 
-**Goal**: ID 기준 영구 삭제와 없는 ID 오류 응답을 지원한다.
+**Goal**: ID 기준 영구 삭제 및 없는 ID 오류 응답 지원
 
-**Independent Test**: `todo delete <id>` 실행 후 항목 제거와 존재하지 않는 ID 오류를 검증한다.
+**Independent Test**: `todo delete <id>` 실행 후 항목 제거 및 존재하지 않는 ID 오류 검증
 
-### Tests for User Story 4 (MANDATORY) ⚠️
+### Tests for User Story 4 (REQUIRED) ⚠️
 
-- [X] T030 [P] [US4] Add unit tests for delete behavior in tests/unit/test_service_delete.py
-- [X] T031 [P] [US4] Add integration tests for delete command responses in tests/integration/test_cli_delete.py
-- [X] T041 [US4] Add integration test for non-numeric ID input on `todo delete` in tests/integration/test_cli_delete.py
+- [ ] T030 [P] [US4] tests/unit/test_delete_todo.py에서 delete 동작에 대한 단위 테스트 작성
+- [ ] T031 [P] [US4] tests/integration/test_cli_delete.py에서 delete 명령 응답에 대한 통합 테스트 작성
+- [ ] T041 [US4] tests/integration/test_cli_delete.py에서 `todo delete` 시 숫자가 아닌 ID 입력에 대한 통합 테스트 추가
 
 ### Implementation for User Story 4
 
-- [X] T032 [US4] Implement delete_todo workflow in todo_lib/service.py
-- [X] T033 [US4] Wire `todo delete` command and ID parsing behavior in cli/main.py
-- [X] T034 [US4] Implement delete command response messages in cli/output.py
+- [ ] T032 [US4] todo_lib/service.py에서 delete_todo 워크플로우 구현
+- [ ] T033 [US4] cli/main.py에서 `todo delete` 명령 및 ID 파싱 동작 연결
+- [ ] T034 [US4] cli/formatters.py에서 delete 명령 응답 메시지 구현
 
-**Checkpoint**: All user stories should now be independently functional
+**Checkpoint**: 모든 user story가 독립적으로 기능해야 함
+
+---
 
 ---
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-**Purpose**: 전체 품질 보강과 문서/검증 마무리
+**Purpose**: 전체 품질 보강 및 문서/검증 마무리
 
-- [X] T035 [P] Add corrupted DB handling integration test in tests/integration/test_cli_system_errors.py
-- [X] T036 Implement SQLite open/read failure to exit-code mapping in cli/main.py and todo_lib/errors.py
-- [X] T037 [P] Update quickstart verification steps in specs/001-cli-todo-app/quickstart.md
+- [ ] T035 [P] tests/integration/test_cli_system_errors.py에 손상된 DB 처리 통합 테스트 추가
+- [ ] T036 cli/main.py와 todo_lib/errors.py에서 SQLite 오픈/읽기 실패를 exit-code 매핑으로 구현
+- [ ] T037 [P] specs/001-cli-todo-app/quickstart.md에서 검증 단계 업데이트
+- [ ] T038 모든 단위 테스트 및 통합 테스트가 통과하고 커버리지 98% 이상 달성 확인
 - [X] T038 Run full test and coverage command documentation update in specs/001-cli-todo-app/quickstart.md
 - [X] T042 Add measurable command-time benchmark test for SC-001 (<=30s) in tests/integration/test_cli_performance.py
 - [X] T043 Add 1,000-item responsiveness test for SC-005 in tests/integration/test_cli_performance.py

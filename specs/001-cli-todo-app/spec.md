@@ -132,7 +132,14 @@
 
 ### Key Entities
 
-- **ToDo 항목**: 고유 ID(자동 부여), 제목(문자열, 필수), 마감일(날짜, 선택), 우선순위(high/medium/low, 선택), 완료 여부(boolean), 생성 일시
+- **ToDo 항목**:
+  - `id` (INTEGER, PK, auto-increment): 고유 ID
+  - `title` (TEXT, NOT NULL): 제목 (필수)
+  - `due_date` (DATE, nullable): 마감일 (선택)
+  - `priority` (TEXT, nullable, allowed: high|medium|low): 우선순위 (선택)
+  - `is_done` (BOOLEAN, default: false): 완료 여부
+  - `created_at` (DATETIME): 생성 일시
+  - `completed_at` (DATETIME, nullable): 완료 일시
 
 ## Success Criteria *(mandatory)*
 
