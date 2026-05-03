@@ -16,10 +16,10 @@ dev = [
 ]
 
 [project.scripts]
-todo = "src.cli.app:main"
+todo = "cli.main:main"
 
 [tool.setuptools]
-packages = ["src"]
+packages = ["todo_lib", "cli", "tests"]
 
 [tool.setuptools.package-dir]
 "" = "."
@@ -31,4 +31,9 @@ build-backend = "setuptools.build_meta"
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
-addopts = "-q"
+addopts = "-v --cov=todo_lib --cov=cli --cov-report=term-missing --cov-report=html"
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = [
+  "unit: Unit tests",
+  "integration: Integration tests",
+]
