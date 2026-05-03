@@ -1,12 +1,12 @@
 <!--
 Sync Impact Report
-- Version change: template -> 1.0.0
+- Version change: template -> 1.0.1
 - Modified principles:
   - PRINCIPLE_1_NAME -> I. 레이어 분리
   - PRINCIPLE_2_NAME -> II. 테스트 우선 (NON-NEGOTIABLE)
   - PRINCIPLE_3_NAME -> III. 최소 의존성
   - PRINCIPLE_4_NAME -> IV. 단순함 우선
-  - PRINCIPLE_5_NAME -> V. CLI 도구 범위 고정
+  - PRINCIPLE_5_NAME -> V. CLI 도구 구현
 - Added sections:
   - Project Scope & Constraints
   - Development Workflow & Quality Gates
@@ -33,8 +33,9 @@ Rationale: 계층 결합을 낮추면 테스트 작성이 단순해지고 기능
 
 ### II. 테스트 우선 (NON-NEGOTIABLE)
 
-모든 구현 작업은 MUST 실패하는 테스트를 먼저 작성한 뒤 시작한다. 테스트가 없는 구현 코드는
-MUST 병합할 수 없다. 버그 수정 또한 MUST 재현 테스트를 먼저 추가한 뒤 수정한다.
+모든 구현 작업은 MUST 실패하는 테스트 코드를 먼저 작성한 뒤 시작한다. 테스트 코드가 없는
+구현 코드는 MUST 작성하거나 병합할 수 없다. 버그 수정 또한 MUST 재현 테스트를 먼저 추가한 뒤
+수정한다.
 Rationale: 테스트 우선은 요구사항 누락을 조기 발견하고 회귀를 방지하는 가장 직접적인 품질 게이트다.
 
 ### III. 최소 의존성
@@ -51,10 +52,10 @@ Rationale: 의존성 축소는 빌드 안정성, 보안성, 온보딩 속도를 
 도입한다.
 Rationale: 불필요한 일반화는 학습 비용과 결함 가능성을 증가시키며 전달 속도를 저하시킨다.
 
-### V. CLI 도구 범위 고정
+### V. CLI 도구 구현
 
-이 프로젝트의 전달 대상은 MUST 터미널에서 실행되는 CLI ToDo 관리 도구다. REST API 서버,
-GUI, 웹 인터페이스, 모바일 앱은 MUST 범위 밖으로 유지한다. 관련 제안이 발생하면 별도
+이 프로젝트의 전달 대상은 MUST 터미널에서 실행되는 CLI ToDo 관리 도구다. REST API,
+GUI, 웹 인터페이스, 모바일 앱은 MUST 프로젝트 범위 밖으로 유지한다. 관련 제안이 발생하면 별도
 프로젝트 또는 후속 헌법 개정으로 분리한다.
 Rationale: 범위를 고정해야 기능 우선순위와 아키텍처 판단이 일관되게 유지된다.
 
@@ -93,4 +94,4 @@ Rationale: 범위를 고정해야 기능 우선순위와 아키텍처 판단이 
 - 모든 Tasks는 테스트 선행 작업을 구현 작업보다 먼저 배치해야 한다.
 - 범위 외 항목(REST API/GUI)이 탐지되면 Plan 또는 Spec 단계에서 차단한다.
 
-**Version**: 1.0.0 | **Ratified**: 2026-05-02 | **Last Amended**: 2026-05-02
+**Version**: 1.0.1 | **Ratified**: 2026-05-02 | **Last Amended**: 2026-05-03
