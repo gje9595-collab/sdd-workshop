@@ -1,0 +1,9 @@
+pyproject.toml
+./src/__init__.py
+cli_todo_manager.egg-info/PKG-INFO
+cli_todo_manager.egg-info/SOURCES.txt
+cli_todo_manager.egg-info/dependency_links.txt
+cli_todo_manager.egg-info/entry_points.txt
+cli_todo_manager.egg-info/requires.txt
+cli_todo_manager.egg-info/top_level.txt
+src/__init__.py

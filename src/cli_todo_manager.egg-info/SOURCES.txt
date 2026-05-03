@@ -1,0 +1,17 @@
+pyproject.toml
+src/__init__.py
+src/adapters/__init__.py
+src/cli/__init__.py
+src/cli/app.py
+src/cli/formatters.py
+src/cli_todo_manager.egg-info/PKG-INFO
+src/cli_todo_manager.egg-info/SOURCES.txt
+src/cli_todo_manager.egg-info/dependency_links.txt
+src/cli_todo_manager.egg-info/entry_points.txt
+src/cli_todo_manager.egg-info/requires.txt
+src/cli_todo_manager.egg-info/top_level.txt
+src/core/__init__.py
+src/core/models.py
+src/core/repository.py
+src/core/service.py
+src/core/validation.py
