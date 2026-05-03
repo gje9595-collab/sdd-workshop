@@ -22,15 +22,16 @@ uv add --dev pytest pytest-cov
 ## 4) 테스트 실행
 ```powershell
 uv run pytest
-uv run pytest --cov=todo_lib --cov=cli --cov-report=term-missing
+uv run pytest --cov=src.core --cov=src.cli --cov-report=term-missing
+uv run pytest tests/unit/test_performance.py
 ```
 
 ## 5) CLI 실행 예시
 ```powershell
-uv run python -m cli.app add "문서 정리" --due 2026-05-10 --priority high
-uv run python -m cli.app list --filter pending
-uv run python -m cli.app done 1
-uv run python -m cli.app delete 1
+uv run python -m src.cli.app add "문서 정리" --due 2026-05-10 --priority high
+uv run python -m src.cli.app list --filter pending
+uv run python -m src.cli.app done 1
+uv run python -m src.cli.app delete 1
 ```
 
 ## 6) 완료 조건

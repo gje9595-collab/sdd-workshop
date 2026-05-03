@@ -90,7 +90,7 @@
 ### Key Entities *(include if feature involves data)*
 
 - **ToDo Item**: 단일 할 일 단위이며 고유 ID, 제목, 마감일(선택), 우선순위(선택), 완료 상태를 가진다.
-- **List Filter**: 목록 조회 시 적용되는 조건 집합이며 완료 상태와 우선순위를 포함한다.
+- **FilterCriteria**: 목록 조회 시 적용되는 조건 집합이며 완료 상태와 우선순위를 포함한다.
 
 ## Out of Scope *(mandatory)*
 

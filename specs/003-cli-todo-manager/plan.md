@@ -5,7 +5,7 @@
 
 ## Summary
 
-터미널 기반 ToDo 관리 CLI를 Python 3.12 + uv 환경에서 구현한다. 비즈니스 로직은 `todo_lib/`에 독립 배치하고, `cli/`는 명령 파싱과 출력만 담당한다. 데이터 저장은 로컬 SQLite 파일을 사용하며, TDD 원칙에 따라 `pytest`/`pytest-cov`로 실패 테스트를 먼저 작성한 뒤 구현한다.
+터미널 기반 ToDo 관리 CLI를 Python 3.12 + uv 환경에서 구현한다. 비즈니스 로직은 `src/core/`에 독립 배치하고, `src/cli/`는 명령 파싱과 출력만 담당한다. 데이터 저장은 로컬 SQLite 파일을 사용하며, TDD 원칙에 따라 `pytest`/`pytest-cov`로 실패 테스트를 먼저 작성한 뒤 구현한다.
 
 ## Technical Context
 
@@ -25,7 +25,7 @@
 
 ### Pre-Research Gate
 
-- [x] Gate 1: 비즈니스 로직과 입출력 계층 분리 설계 반영 (`todo_lib/` vs `cli/`)
+- [x] Gate 1: 비즈니스 로직과 입출력 계층 분리 설계 반영 (`src/core/` vs `src/cli/`, `src/adapters/`)
 - [x] Gate 2: 사용자 스토리별 실패 테스트 선행 계획 존재 (`tests/` 선작성)
 - [x] Gate 3: 의존성 필요성/대안/리스크 검토 근거 존재 (research.md에 기록)
 - [x] Gate 4: 불필요한 추상화 배제 (ITodoRepository 등 인터페이스 미도입)
@@ -57,15 +57,19 @@ specs/003-cli-todo-manager/
 ### Source Code (repository root)
 
 ```text
-todo_lib/
-├── models.py
-├── repository.py
-├── service.py
-└── validation.py
-
-cli/
-├── app.py
-└── formatters.py
+src/
+├── core/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── repository.py
+│   ├── service.py
+│   └── validation.py
+├── cli/
+│   ├── __init__.py
+│   ├── app.py
+│   └── formatters.py
+└── adapters/          # 현재 미사용; 외부 연동 어댑터 확장 예약 계층
+    └── __init__.py
 
 tests/
 ├── unit/
@@ -77,7 +81,7 @@ tests/
     └── test_cli_commands.py
 ```
 
-**Structure Decision**: 비즈니스 규칙과 데이터 접근은 `todo_lib/`에 집중시키고, `cli/`는 Typer 커맨드 및 출력 포맷만 담당한다. 테스트는 사용자 스토리 단위로 실패 케이스부터 작성한다.
+**Structure Decision**: 비즈니스 규칙과 데이터 접근은 `src/core/`에 집중시키고, `src/cli/`는 Typer 커맨드 및 출력 포맷만 담당한다. `src/adapters/`는 현재 기능 범위에서 사용하지 않으나 헌법 레이어 원칙에 따라 예약한다. 테스트는 사용자 스토리 단위로 실패 케이스부터 작성한다.
 
 ## Phase Plan
 
