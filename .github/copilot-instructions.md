@@ -1,6 +1,6 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
-shell commands, and other important information, read specs/003-cli-todo-manager/plan.md
+shell commands, and other important information, read specs/002-todo-tags/plan.md
 <!-- SPECKIT END -->
 
 # 언어규칙
