@@ -1,4 +1,4 @@
-# Tasks: ToDo 태그 기능 통합
+﻿# Tasks: ToDo 태그 기능 통합
 
 **Input**: Design documents from `/specs/002-todo-tags/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
@@ -17,10 +17,10 @@
 
 **Purpose**: 태그 기능 작업을 위한 테스트/검증 준비
 
-- [ ] T001 [P] 태그 검증 테스트 스캐폴드 작성 in tests/unit/test_tags_validation.py
-- [ ] T002 [P] 태그 서비스 테스트 스캐폴드 작성 in tests/unit/test_service_tags.py
-- [ ] T003 [P] 태그 CLI 통합 테스트 스캐폴드 작성 in tests/integration/test_cli_tags.py
-- [ ] T004 회귀 baseline 실행 절차를 정리 in specs/002-todo-tags/quickstart.md
+- [X] T001 [P] 태그 검증 테스트 스캐폴드 작성 in tests/unit/test_tags_validation.py
+- [X] T002 [P] 태그 서비스 테스트 스캐폴드 작성 in tests/unit/test_service_tags.py
+- [X] T003 [P] 태그 CLI 통합 테스트 스캐폴드 작성 in tests/integration/test_cli_tags.py
+- [X] T004 회귀 baseline 실행 절차를 정리 in specs/002-todo-tags/quickstart.md
 
 ---
 
@@ -30,10 +30,10 @@
 
 **⚠️ CRITICAL**: 이 단계 완료 전에는 사용자 스토리 구현을 시작하지 않는다.
 
-- [ ] T005 ToDoItem에 tags JSON 컬럼 추가 in todo_lib/models.py
-- [ ] T006 [P] tags 정규화/중복/형식 검증 함수 추가 in todo_lib/validation.py
-- [ ] T007 [P] add/list 태그 파라미터 수용 시그니처 확장 in todo_lib/repository.py
-- [ ] T008 tags null/빈 목록 호환 처리 규칙 통합 in todo_lib/service.py
+- [X] T005 ToDoItem에 tags JSON 컬럼 추가 in todo_lib/models.py
+- [X] T006 [P] tags 정규화/중복/형식 검증 함수 추가 in todo_lib/validation.py
+- [X] T007 [P] add/list 태그 파라미터 수용 시그니처 확장 in todo_lib/repository.py
+- [X] T008 tags null/빈 목록 호환 처리 규칙 통합 in todo_lib/service.py
 
 **Checkpoint**: 태그 저장 구조와 공통 검증 기반이 준비되어 스토리 구현을 병렬로 시작할 수 있다.
 
@@ -47,15 +47,15 @@
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T009 [P] [US1] add_todo 태그 저장/미지정 호환 단위 테스트 작성 in tests/unit/test_service_tags.py
-- [ ] T010 [P] [US1] `todo add --tag` 성공/입력오류 통합 테스트 작성 in tests/integration/test_cli_tags.py
+- [X] T009 [P] [US1] add_todo 태그 저장/미지정 호환 단위 테스트 작성 in tests/unit/test_service_tags.py
+- [X] T010 [P] [US1] `todo add --tag` 성공/입력오류 통합 테스트 작성 in tests/integration/test_cli_tags.py
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] add_item 태그 저장 로직 구현 in todo_lib/repository.py
-- [ ] T012 [US1] add_todo tags 파라미터 및 검증 흐름 구현 in todo_lib/service.py
-- [ ] T013 [US1] `todo add` 반복 `--tag` 옵션 연결 in cli/main.py
-- [ ] T014 [US1] add 명령 태그 입력 오류 메시지 매핑 보강 in cli/main.py
+- [X] T011 [US1] add_item 태그 저장 로직 구현 in todo_lib/repository.py
+- [X] T012 [US1] add_todo tags 파라미터 및 검증 흐름 구현 in todo_lib/service.py
+- [X] T013 [US1] `todo add` 반복 `--tag` 옵션 연결 in cli/main.py
+- [X] T014 [US1] add 명령 태그 입력 오류 메시지 매핑 보강 in cli/main.py
 
 **Checkpoint**: US1 단독으로 태그 저장 기능이 동작하고 테스트 가능해야 한다.
 
@@ -69,15 +69,15 @@
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T015 [P] [US2] list_todos 태그 필터/교집합 단위 테스트 작성 in tests/unit/test_service_tags.py
-- [ ] T016 [P] [US2] `todo list --tag` 출력/교집합 통합 테스트 작성 in tests/integration/test_cli_tags.py
+- [X] T015 [P] [US2] list_todos 태그 필터/교집합 단위 테스트 작성 in tests/unit/test_service_tags.py
+- [X] T016 [P] [US2] `todo list --tag` 출력/교집합 통합 테스트 작성 in tests/integration/test_cli_tags.py
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] list_items 태그 필터 조건 구현 in todo_lib/repository.py
-- [ ] T018 [US2] list_todos tag 파라미터 결합 로직 구현 in todo_lib/service.py
-- [ ] T019 [US2] `todo list`의 `--tag` 옵션 추가 in cli/main.py
-- [ ] T020 [US2] 목록 출력에 태그 컬럼 렌더링 추가 in cli/formatters.py
+- [X] T017 [US2] list_items 태그 필터 조건 구현 in todo_lib/repository.py
+- [X] T018 [US2] list_todos tag 파라미터 결합 로직 구현 in todo_lib/service.py
+- [X] T019 [US2] `todo list`의 `--tag` 옵션 추가 in cli/main.py
+- [X] T020 [US2] 목록 출력에 태그 컬럼 렌더링 추가 in cli/formatters.py
 
 **Checkpoint**: US1과 US2가 각각 독립적으로 동작하고 함께 사용할 수 있어야 한다.
 
@@ -91,14 +91,14 @@
 
 ### Tests for User Story 3 (REQUIRED) ⚠️
 
-- [ ] T021 [P] [US3] 태그 미사용 기존 동작 회귀 테스트 작성 in tests/integration/test_cli_regression_no_tags.py
-- [ ] T022 [P] [US3] 기존 서비스 경로 회귀 테스트 보강 in tests/unit/test_service_regression_no_tags.py
+- [X] T021 [P] [US3] 태그 미사용 기존 동작 회귀 테스트 작성 in tests/integration/test_cli_regression_no_tags.py
+- [X] T022 [P] [US3] 기존 서비스 경로 회귀 테스트 보강 in tests/unit/test_service_regression_no_tags.py
 
 ### Implementation for User Story 3
 
-- [ ] T023 [US3] done/delete 명령 비영향성 검증 및 최소 수정 반영 in cli/main.py
-- [ ] T024 [US3] tags null 기존 레코드 호환성 보강 in todo_lib/service.py
-- [ ] T025 [US3] 회귀 검증 기준을 quickstart에 반영 in specs/002-todo-tags/quickstart.md
+- [X] T023 [US3] done/delete 명령 비영향성 검증 및 최소 수정 반영 in cli/main.py
+- [X] T024 [US3] tags null 기존 레코드 호환성 보강 in todo_lib/service.py
+- [X] T025 [US3] 회귀 검증 기준을 quickstart에 반영 in specs/002-todo-tags/quickstart.md
 
 **Checkpoint**: 기존 기능 회귀 없이 태그 기능이 통합되어야 한다.
 
@@ -108,9 +108,9 @@
 
 **Purpose**: 전체 품질/문서/검증 마무리
 
-- [ ] T026 [P] CLI 계약 최종 동기화 in specs/002-todo-tags/contracts/cli-contract.md
-- [ ] T027 [P] 데이터 모델 문서 최종 동기화 in specs/002-todo-tags/data-model.md
-- [ ] T028 전체 테스트 실행 및 결과 확인 in specs/002-todo-tags/quickstart.md
+- [X] T026 [P] CLI 계약 최종 동기화 in specs/002-todo-tags/contracts/cli-contract.md
+- [X] T027 [P] 데이터 모델 문서 최종 동기화 in specs/002-todo-tags/data-model.md
+- [X] T028 전체 테스트 실행 및 결과 확인 in specs/002-todo-tags/quickstart.md
 - [ ] T029 커버리지 결과 기록 및 누락 보강 in specs/002-todo-tags/quickstart.md
 
 ---

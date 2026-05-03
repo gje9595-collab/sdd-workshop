@@ -16,6 +16,14 @@ uv run pytest
 
 기대 결과: 기존 + 신규 태그 테스트 모두 통과
 
+## 2-1) 커버리지 리포트 확인
+
+```powershell
+uv run pytest --cov=todo_lib --cov=cli --cov-report=term-missing
+```
+
+기대 결과: 태그 관련 변경 경로(add/list/validation/service)가 리포트에 포함된다.
+
 ## 3) 수동 CLI 확인
 
 ```powershell
