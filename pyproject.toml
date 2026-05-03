@@ -1,0 +1,39 @@
+[project]
+name = "cli-todo-manager"
+version = "0.1.0"
+description = "CLI ToDo Manager"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "typer>=0.12.3",
+  "sqlalchemy>=2.0.30",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0",
+  "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+todo = "cli.main:main"
+
+[tool.setuptools]
+packages = ["todo_lib", "cli", "tests"]
+
+[tool.setuptools.package-dir]
+"" = "."
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v --cov=todo_lib --cov=cli --cov-report=term-missing --cov-report=html"
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = [
+  "unit: Unit tests",
+  "integration: Integration tests",
+]
